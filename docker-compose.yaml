@@ -1,0 +1,17 @@
+web:
+  build: .
+  command: python app.py
+  ports:
+   - "5000:5000"
+  volumes:
+   - .:/app
+  links:
+   - db
+  hostname: myappserver
+db:
+  hostname: mysqlserver
+  image: orchardup/mysql
+  environment:
+     MYSQL_DATABASE: decision_engine
+     MYSQL_USER: root
+     MYSQL_ROOT_PASSWORD: root
