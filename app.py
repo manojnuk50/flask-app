@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS, cross_origin
 import requests
 import yaml
 from lib.decision_engine import DecisionEngine
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 CONFIG_PATH = './config/db.yaml'
 CONFIG = yaml.load(open(CONFIG_PATH))
 CONFIG_DATA = yaml.load(open(CONFIG['config_path']))
