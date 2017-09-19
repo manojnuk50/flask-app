@@ -13,7 +13,7 @@ CONFIG_DATA = yaml.load(open(CONFIG['config_path']))
 def get():
     return jsonify({"app": "Decision engine",
                     "version": "1.0",
-                    "env": CONFIG_DATA[CONFIG_DATA['env']]})
+                    "env": CONFIG_DATA['env']})
 
 
 @app.route('/recommended/<product>/<userid>')
