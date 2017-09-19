@@ -18,7 +18,7 @@ def get():
 
 @app.route('/recommended/<product>/<userid>')
 def top_ten(product, userid):
-    url = CONFIG['url']
+    url = CONFIG_DATA['url']
     return jsonify(requests.get(url.format(userid=userid, product=product)).json())
 
 
