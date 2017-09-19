@@ -5,7 +5,7 @@ import yaml
 from lib.decision_engine import DecisionEngine
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/*": {"origins": "*"}})
+#cors = CORS(app, resources={r"/*": {"origins": "*"}})
 CONFIG_PATH = './config/db.yaml'
 CONFIG = yaml.load(open(CONFIG_PATH))
 CONFIG_DATA = yaml.load(open(CONFIG['config_path']))
@@ -21,7 +21,7 @@ def get():
 @app.after_request
 def after_request(response):
   response.headers.add('Access-Control-Allow-Origin', '*')
-  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  #response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
   response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
   return response
 
@@ -36,7 +36,7 @@ def top_ten(product, userid):
 
 
 @app.route('/decision-engine/slot/update/<int:slot_no>')
-@cross_origin(origin='*')
+#@cross_origin(origin='*')
 def update_slot(slot_no):
     article = request.args.get('articles')
     cross_products = request.args.get('cross_products')
@@ -52,7 +52,7 @@ def update_slot(slot_no):
 
 
 @app.route('/decision-engine/slot/list/')
-@cross_origin(origin='*')
+#@cross_origin(origin='*')
 def get_slot():
     dc = DecisionEngine(app=app, config=CONFIG_DATA[CONFIG_DATA['env']])
     data = dc.get_rules()
