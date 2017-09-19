@@ -13,7 +13,7 @@ CONFIG_DATA = yaml.load(open(CONFIG['config_path']))
 def get():
     return jsonify({"app": "Decision engine",
                     "version": "1.0",
-                    "env": CONFIG['env']})
+                    "env": CONFIG_DATA[CONFIG_DATA['env']]})
 
 
 @app.route('/recommended/<product>/<userid>')
@@ -32,7 +32,7 @@ def update_slot(slot_no):
         insert = 0
     else:
         insert = 1
-    dc = DecisionEngine(app=app, config=CONFIG_DATA[CONFIG['env']])
+    dc = DecisionEngine(app=app, config=CONFIG_DATA[CONFIG_DATA['env']])
     data = dc.update_rule(slot_no, article, cross_products, ad, insert=insert)
     return jsonify({'status': data})
 
