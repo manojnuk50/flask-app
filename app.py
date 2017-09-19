@@ -19,7 +19,10 @@ def get():
 @app.route('/recommended/<product>/<userid>')
 def top_ten(product, userid):
     url = CONFIG_DATA['url']
-    return jsonify(requests.get(url.format(userid=userid, product=product)).json())
+    dc = DecisionEngine(app=app, config=CONFIG_DATA[CONFIG_DATA['env']])
+    recommended_articles=requests.get(url.format(userid=userid, product=product)).json()
+    recommended_articles['rules'] = dc.get_rules()
+    return jsonify(recommended_articles)
 
 
 @app.route('/decision-engine/slot/update/<int:slot_no>')
