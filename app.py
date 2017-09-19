@@ -18,6 +18,14 @@ def get():
                     "env": CONFIG_DATA['env']})
 
 
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+  return response
+
+
 @app.route('/recommended/<product>/<userid>')
 def top_ten(product, userid):
     url = CONFIG_DATA['url']
@@ -28,6 +36,7 @@ def top_ten(product, userid):
 
 
 @app.route('/decision-engine/slot/update/<int:slot_no>')
+@cross_origin(origin='*')
 def update_slot(slot_no):
     article = request.args.get('articles')
     cross_products = request.args.get('cross_products')
@@ -43,6 +52,7 @@ def update_slot(slot_no):
 
 
 @app.route('/decision-engine/slot/list/')
+@cross_origin(origin='*')
 def get_slot():
     dc = DecisionEngine(app=app, config=CONFIG_DATA[CONFIG_DATA['env']])
     data = dc.get_rules()
