@@ -35,7 +35,7 @@ def top_ten(product, userid):
     return jsonify(recommended_articles)
 
 
-@app.route('/decision-engine/slot/update/<int:slot_no>', methods=['POST'])
+@app.route('/decision-engine/slot/update/<int:slot_no>')
 #@cross_origin(origin='*')
 def update_slot(slot_no):
     article = request.args.get('articles')
